@@ -3,7 +3,7 @@ import random
 
 
 def generate_random_number(rangeA, rangeB):
-    num = random.randrange(rangeA, rangeB)
+    num = random.randrange(rangeA, rangeB + 1)
 
     return num
 
@@ -15,8 +15,8 @@ def generate_csv(lines):
         )
 
         for _ in range(lines):
-            internal_temperature = generate_random_number(18, 35)
-            external_temperature = generate_random_number(-5, 30)
+            internal_temperature = generate_random_number(12, 32)
+            external_temperature = generate_random_number(-200, 200)
             structural_integrity = generate_random_number(0, 1)
             energy_level = generate_random_number(0, 100)
             tank_pressure = generate_random_number(80, 160)
