@@ -18,6 +18,10 @@ def contagem_regressiva(tempo, mensagem):
 
   print (mensagem)
 
+def painel (temperatura_Interna, temperatura_Externa, integridade_Estrutural, niveis_de_energia, pressao_de_energia, Status_dos_modulos_criticos):
+  print (f" Temperatura Interna= { temperatura_Interna}\n Temperatura Externa= {temperatura_Externa}\n Integridade Estrutural= {integridade_Estrutural}\n Niveis de Energia= {niveis_de_energia}\n Pressão de Energia= {pressao_de_energia}\n Status dos Modulos Criticos= {Status_dos_modulos_criticos}\n")   
+
+
 def main():
   temperaturaInterna = 24
   temperaturaExterna = 800
@@ -47,9 +51,14 @@ def main():
     
   if decolar == True:
     contagem_regressiva(5, "DECOLAR")
+    print (" Os valores estão de acordo para uma decolagem segura, apertem os cintos!!!")
+    painel(24, 800, False, 50, 120, False)
+   
+  
 
   else:
-    print("nao vai")
+    print("Decolagem Abortada!!")
+    print("Os valores não estão de acordo!")
    
 
 if __name__ == "__main__":
