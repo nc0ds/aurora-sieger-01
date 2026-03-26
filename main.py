@@ -51,7 +51,9 @@ def main():
     
   if decolar == True:
     contagem_regressiva(5, "DECOLAR")
+    time.sleep(2)
     print (" Os valores estão de acordo para uma decolagem segura, apertem os cintos!!!")
+    time.sleep(2)
     painel(24, 800, False, 50, 120, False)
    
   
