@@ -9,7 +9,7 @@
 Execute os seguintes comandos:
 
 1. `python3 data_generator.py` para gerar os dados de telemetria
-   a. O script gerador de dados recebe uma flag opcional `-l` ou `--lines` que determina a quantidade de linhas que devem ser geradas. O valor padrão é `100`.
+   - O script gerador de dados recebe uma flag opcional `-l` ou `--lines` que determina a quantidade de linhas que devem ser geradas. O valor padrão é `100`.
 2. Em seguida, execute `python3 main.py` para executar o algoritmo de verificação de decolagem
 
 ## Resultado esperado
