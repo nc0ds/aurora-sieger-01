@@ -23,7 +23,7 @@ def generate_csv(lines):
             critic_modules_status = generate_random_number(0, 1)
 
             file.write(
-                f"{internal_temperature}, {external_temperature}, {structural_integrity}, {energy_level}, {tank_pressure}, {critic_modules_status}\n"
+                f"{internal_temperature},{external_temperature},{structural_integrity},{energy_level},{tank_pressure},{critic_modules_status}\n"
             )
 
 
