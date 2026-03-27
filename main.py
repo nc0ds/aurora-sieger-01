@@ -36,6 +36,19 @@ def countdown(seconds, message):
     print(message)
 
 
+def painel(
+    temperatura_Interna,
+    temperatura_Externa,
+    integridade_Estrutural,
+    niveis_de_energia,
+    pressao_de_energia,
+    Status_dos_modulos_criticos,
+):
+    print(
+        f"Temperatura Interna: {temperatura_Interna}\nTemperatura Externa: {temperatura_Externa}\nIntegridade Estrutural: {integridade_Estrutural}\nNiveis de Energia: {niveis_de_energia}\nPressão de Energia: {pressao_de_energia}\nStatus dos Modulos Criticos: {Status_dos_modulos_criticos}\n"
+    )
+
+
 def separate_headers(headers):
     _headers = headers.split(",")
     _headers[-1] = _headers[-1][: len(_headers[-1]) - 1]
@@ -168,7 +181,12 @@ def launch(data):
         ):
             will_launch = False
             print(f"\r{data_map[item]}: ERRO")
-            print("ABORTAR DECOLAGEM")
+            print("\nABORTAR DECOLAGEM")
+            print("\nRELATÓRIO DOS SENSORES:")
+
+            averages = list(map(lambda item: float(data[item]["average"]), data))
+            painel(*averages)
+
             break
 
         print(f"\r{data_map[item]}: OK")
