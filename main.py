@@ -181,7 +181,7 @@ def launch(data):
         ):
             will_launch = False
             print(f"\r{data_map[item]}: ERRO")
-            print("\nABORTAR DECOLAGEM")
+            print("\nDECOLAGEM ABORTADA")
             print("\nRELATÓRIO DOS SENSORES:")
 
             averages = list(map(lambda item: float(data[item]["average"]), data))
@@ -192,7 +192,7 @@ def launch(data):
         print(f"\r{data_map[item]}: OK")
 
     if will_launch:
-        print("")
+        print("\nPRONTO PARA DECOLAR\n")
         countdown(5, "DECOLAR")
 
 
