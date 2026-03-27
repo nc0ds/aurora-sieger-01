@@ -1,41 +1,24 @@
 # Aurora Sieger - Atividade 1
 
-## Dados a serem interpretados
+## Pré-requisitos
 
-- Temperatura interna (entre 18 a 35)
-- Temperatura externa (entre -5 a 30)
-- Integridade estrutural (0/1)
-- Níveis de energia (%) (entre 5 e 25)
-- Pressão dos tanques (entre 80 e 160)
-- Status dos módulos críticos (0/1)
+- Python 3.x
 
-## Script em Python
+## Como executar
 
-Implementar a lógica do algoritmo em Python, simulando:
+Execute os seguintes comandos:
 
-- Leitura dos dados
-- Execução das verificações
-- Resultado final impresso
+1. `python3 data_generator.py` para gerar os dados de telemetria
+   a. O script gerador de dados recebe uma flag opcional `-l` ou `--lines` que determina a quantidade de linhas que devem ser geradas. O valor padrão é `100`.
+2. Em seguida, execute `python3 main.py` para executar o algoritmo de verificação de decolagem
 
-## Análise energética
+## Resultado esperado
 
-Calcular autonomia inicial considerando:
+Ao executar o algoritmo de verificação, há duas possibilidades previstas:
 
-- Capacidade total (kWh)
-- Carga atual (%)
-- Consumo estimado na decolagem
-- Perdas energéticas
+- Resultado positivo: "PRONTO PARA DECOLAR"
+- Resultado negativo: "DECOLAGEM ABORTADA"
 
-## Análise assistida por IA
-- Solicitar a IA-
+Para o resultado positivo acontecer, é necessário que a média dos valores de telemetria gerados anteriormente estejam de acordo com os valores mínimos e máximos determinados no algoritmo, possibilitando então a decolagem.
 
-- Classificação dos dados;
-- Identificação de possíveis anomalias;
-- Sugestões de risco.
-
-##  Reflexão crítica
-- Texto sobre: -
-
-- Ética e responsabilidade;
-- Impacto social da exploração espacial;
-- Sustentabilidade tecnológica.
+Por outro lado, para o resultado negativo acontecer, basta qualquer valor médio estar fora do esperado que automaticamente a validação termina, previnindo a decolagem.
