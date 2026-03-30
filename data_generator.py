@@ -14,7 +14,7 @@ def generate_csv(lines):
             "internal_temperature,external_temperature,structural_integrity,energy_level,tank_pressure,critic_modules_status\n"
         )
 
-        for _ in range(lines):
+        for _ in range(int(lines)):
             internal_temperature = generate_random_number(12, 32)
             external_temperature = generate_random_number(-200, 200)
             structural_integrity = generate_random_number(0, 1)

@@ -29,11 +29,11 @@ def countdown(seconds, message):
     count = seconds
 
     while count > 0:
-        print(f"{count} segundos...")
+        print(f"{count} segundo{"s" if count > 1 else ""}...")
         time.sleep(1)
         count -= 1
 
-    print(message)
+    print(f"\n{message}")
 
 
 def painel(
@@ -80,6 +80,33 @@ def get_matrix(data):
         matrix.append(validation_line)
 
     return matrix, headers
+
+
+def get_positives_percentage(matrix, headers):
+    count = [0] * len(headers)
+    percentages = []
+    total_lines = len(matrix)
+
+    for line in matrix:
+        for index in range(len(headers)):
+            if line[index]:
+                count[index] += 1
+
+    for num in count:
+        percentages.append(round((num / total_lines) * 100, 2))
+
+    return percentages
+
+
+def get_average_percentage(percentages):
+    count = 0
+
+    for num in percentages:
+        count += num
+
+    result = round(count / len(percentages), 2)
+
+    return result
 
 
 def get_averages(data, headers):
@@ -133,27 +160,26 @@ def get_averages(data, headers):
 
 
 def validate_data(data):
-    _, headers = get_matrix(data)
+    matrix, headers = get_matrix(data)
     averages = get_averages(data, headers)
+    percentages = get_positives_percentage(matrix, headers)
 
-    return {"data": averages}
-
-
-def can_launch(averages):
-    launch = True
-
-    for item in data_limits:
-        if (
-            int(averages[item]["average"]) < data_limits[item]["min"]
-            or int(averages[item]["average"]) > data_limits[item]["max"]
-        ):
-            launch = False
-            break
-
-    return launch
+    return {
+        "percentages": percentages,
+        "averages": averages,
+    }
 
 
-def launch(data):
+def show_percentages(headers, percentages):
+    print("PORCENTAGEM DE DADOS POSITIVOS:")
+
+    for index in range(len(percentages)):
+        print(f"{headers[index]}: {percentages[index]}%")
+
+    print(f"\nMÉDIA DE PORCENTAGEM: {get_average_percentage(percentages)}%")
+
+
+def launch(averages, percentages):
     data_map = {
         "internal_temperature": "Temperatura interna",
         "external_temperature": "Temperatura externa",
@@ -162,6 +188,7 @@ def launch(data):
         "tank_pressure": "Pressão dos tanques",
         "critic_modules_status": "Status dos Módulos Críticos",
     }
+    mapped_headers = [data_map[header] for header in averages]
     will_launch = True
 
     for item in data_limits:
@@ -176,24 +203,31 @@ def launch(data):
         print("\r" + " " * (len(data_map[item]) + 6), end="")
 
         if (
-            int(data[item]["average"]) < data_limits[item]["min"]
-            or int(data[item]["average"]) > data_limits[item]["max"]
+            int(averages[item]["average"]) < data_limits[item]["min"]
+            or int(averages[item]["average"]) > data_limits[item]["max"]
         ):
             will_launch = False
             print(f"\r{data_map[item]}: ERRO")
-            print("\nDECOLAGEM ABORTADA")
-            print("\nRELATÓRIO DOS SENSORES:")
-
-            averages = list(map(lambda item: float(data[item]["average"]), data))
-            painel(*averages)
-
-            break
-
-        print(f"\r{data_map[item]}: OK")
+        else:
+            print(f"\r{data_map[item]}: OK")
 
     if will_launch:
+        print("")
+        show_percentages(mapped_headers, percentages)
+
         print("\nPRONTO PARA DECOLAR\n")
         countdown(5, "DECOLAR")
+    else:
+        print("\nDECOLAGEM ABORTADA")
+        print("\nRELATÓRIO DOS SENSORES:")
+
+        averages = list(
+            map(lambda item: round(float(averages[item]["average"]), 2), averages)
+        )
+        painel(*averages)
+
+        print("")
+        show_percentages(mapped_headers, percentages)
 
 
 def main():
@@ -201,7 +235,10 @@ def main():
         data = file.readlines()
         validated_data = validate_data(data)
 
-        launch(validated_data["data"])
+        launch(
+            validated_data["averages"],
+            validated_data["percentages"],
+        )
 
 
 if __name__ == "__main__":
