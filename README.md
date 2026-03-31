@@ -1,5 +1,10 @@
 # Aurora Sieger - Atividade 1
 
+**Integrantes do grupo:**
+
+- Nathan Caio da Silva - RM 568750
+- Gabrielly Drosda da Silva - RM 571793
+
 ## Pré-requisitos
 
 - Python 3.x
